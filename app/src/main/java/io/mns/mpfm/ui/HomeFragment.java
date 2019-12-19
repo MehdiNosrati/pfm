@@ -25,10 +25,6 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private HomeViewmodel viewmodel;
 
-    public HomeFragment() {
-        // Required empty public constructor
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
