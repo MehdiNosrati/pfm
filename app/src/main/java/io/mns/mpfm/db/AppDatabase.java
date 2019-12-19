@@ -1,0 +1,72 @@
+package io.mns.mpfm.db;
+
+import android.content.Context;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.room.Database;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
+
+import io.mns.mpfm.AppExecutors;
+import io.mns.mpfm.db.converters.DateConverter;
+import io.mns.mpfm.db.converters.TransactionTypeConverter;
+import io.mns.mpfm.db.dao.TransactionDao;
+import io.mns.mpfm.db.entities.TransactionEntity;
+
+@Database(entities = {TransactionEntity.class}, version = 1, exportSchema = false)
+@TypeConverters({DateConverter.class, TransactionTypeConverter.class})
+public abstract class AppDatabase extends RoomDatabase {
+
+    private static AppDatabase sInstance;
+
+    private static final String DATABASE_NAME = "pfm_db";
+
+    public abstract TransactionDao transactionDao();
+
+    private final MutableLiveData<Boolean> mIsDatabaseCreated = new MutableLiveData<>();
+
+    public static AppDatabase getInstance(final Context context, final AppExecutors executors) {
+        if (sInstance == null) {
+            synchronized (AppDatabase.class) {
+                if (sInstance == null) {
+                    sInstance = buildDatabase(context.getApplicationContext(), executors);
+                    sInstance.updateDatabaseCreated(context.getApplicationContext());
+                }
+            }
+        }
+        return sInstance;
+    }
+
+    private static AppDatabase buildDatabase(final Context appContext,
+                                             final AppExecutors executors) {
+        return Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME)
+                .build();
+    }
+
+    /**
+     * Check whether the database already exists and expose it via {@link #getDatabaseCreated()}
+     */
+    private void updateDatabaseCreated(final Context context) {
+        if (context.getDatabasePath(DATABASE_NAME).exists()) {
+            setDatabaseCreated();
+        }
+    }
+
+    private void setDatabaseCreated(){
+        mIsDatabaseCreated.postValue(true);
+    }
+
+    private static void addDelay() {
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException ignored) {
+        }
+    }
+
+    public LiveData<Boolean> getDatabaseCreated() {
+        return mIsDatabaseCreated;
+    }
+}
+
