@@ -43,6 +43,7 @@ dependencies {
     implementation deps.support.v4
     implementation deps.support.design
     implementation deps.support.cardview
+    implementation deps.constraint_layout
 
     // Architecture components
     implementation deps.lifecycle.runtime
@@ -68,5 +69,8 @@ dependencies {
     androidTestImplementation deps.support.v4
     androidTestImplementation deps.support.app_compat
     androidTestImplementation deps.support.design
+
+    implementation deps.navigation.fragment
+    implementation deps.navigation.ui
 
 }
