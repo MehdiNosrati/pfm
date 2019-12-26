@@ -37,7 +37,7 @@
                 android:layout_margin="@dimen/_16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="monday"
-                android:text="@{data.date.toString()}"/>
+                android:text="@{String.valueOf(data.date.time)}"/>
             <TextView
                 android:id="@+id/transaction_value"
                 android:layout_width="wrap_content"
