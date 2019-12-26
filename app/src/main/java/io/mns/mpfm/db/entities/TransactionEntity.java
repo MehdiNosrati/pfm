@@ -1,5 +1,7 @@
 package io.mns.mpfm.db.entities;
 
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -9,7 +11,7 @@ import java.util.Date;
 import io.mns.mpfm.model.Transaction;
 
 @Entity(tableName = "transaction_table")
-public class TransactionEntity implements Transaction {
+public class TransactionEntity extends BaseObservable implements Transaction {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -36,6 +38,7 @@ public class TransactionEntity implements Transaction {
     public TransactionEntity() {
     }
 
+    @Bindable
     @Override
     public long getValue() {
         return value;
@@ -45,6 +48,7 @@ public class TransactionEntity implements Transaction {
         this.value = value;
     }
 
+    @Bindable
     @Override
     public String getTitle() {
         return title;
@@ -54,6 +58,7 @@ public class TransactionEntity implements Transaction {
         this.date = date;
     }
 
+    @Bindable
     @Override
     public Date getDate() {
         return null;
