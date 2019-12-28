@@ -2,27 +2,24 @@ package io.mns.mpfm.ui;
 
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import androidx.lifecycle.ViewModelProviders;
 
 import io.mns.mpfm.R;
 import io.mns.mpfm.databinding.FragmentTransactionBinding;
+import io.mns.mpfm.viewmodels.TransactionViewModel;
 
 public class TransactionFragment extends Fragment {
 
     private FragmentTransactionBinding binding;
-
-    public TransactionFragment() {
-        // Required empty public constructor
-    }
-
+    private TransactionViewModel viewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -34,6 +31,13 @@ public class TransactionFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //TODO setup viewmodel
+        viewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
+        binding.submit.setOnClickListener(v -> {
+            viewModel.submit(binding.title.getText().toString(),
+                    Long.valueOf(binding.value.getText().toString()));
+            if (getFragmentManager() != null) {
+                getFragmentManager().popBackStack();
+            }
+        });
     }
 }

@@ -8,10 +8,8 @@ import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
-import io.mns.mpfm.model.Transaction;
-
 @Entity(tableName = "transaction_table")
-public class TransactionEntity extends BaseObservable implements Transaction {
+public class Transaction extends BaseObservable {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -20,7 +18,7 @@ public class TransactionEntity extends BaseObservable implements Transaction {
     private TransactionType type;
 
     @Ignore
-    public TransactionEntity(int id, long value, String title, TransactionType type, Date date) {
+    public Transaction(int id, long value, String title, TransactionType type, Date date) {
         this.id = id;
         this.value = value;
         this.title = title;
@@ -30,16 +28,14 @@ public class TransactionEntity extends BaseObservable implements Transaction {
 
     private Date date;
 
-    @Override
     public int getId() {
         return this.id;
     }
 
-    public TransactionEntity() {
+    public Transaction() {
     }
 
     @Bindable
-    @Override
     public long getValue() {
         return value;
     }
@@ -49,7 +45,6 @@ public class TransactionEntity extends BaseObservable implements Transaction {
     }
 
     @Bindable
-    @Override
     public String getTitle() {
         return title;
     }
@@ -59,7 +54,6 @@ public class TransactionEntity extends BaseObservable implements Transaction {
     }
 
     @Bindable
-    @Override
     public Date getDate() {
         return null;
     }
@@ -68,7 +62,6 @@ public class TransactionEntity extends BaseObservable implements Transaction {
         this.title = title;
     }
 
-    @Override
     public TransactionType getType() {
         return type;
     }

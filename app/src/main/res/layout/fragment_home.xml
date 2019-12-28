@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="io.mns.mpfm.viewmodels.HomeViewmodel" />
+            type="io.mns.mpfm.viewmodels.HomeViewModel" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"

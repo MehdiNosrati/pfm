@@ -6,7 +6,7 @@ import androidx.lifecycle.MediatorLiveData;
 import java.util.List;
 
 import io.mns.mpfm.db.AppDatabase;
-import io.mns.mpfm.db.entities.TransactionEntity;
+import io.mns.mpfm.db.entities.Transaction;
 
 /**
  * Repository handling the work with transactions and comments.
@@ -16,7 +16,7 @@ public class DataRepository {
     private static DataRepository sInstance;
 
     private final AppDatabase mDatabase;
-    private MediatorLiveData<List<TransactionEntity>> mObservabletransactions;
+    private MediatorLiveData<List<Transaction>> mObservabletransactions;
 
     private DataRepository(final AppDatabase database) {
         mDatabase = database;
@@ -44,8 +44,13 @@ public class DataRepository {
     /**
      * Get the list of transactions from the database and get notified when the data changes.
      */
-    public LiveData<List<TransactionEntity>> gettransactions() {
+    public LiveData<List<Transaction>> getTransactions() {
         return mObservabletransactions;
+    }
+
+    public void submit(Transaction transaction) {
+        mDatabase.getExecutor().execute(() ->
+                mDatabase.transactionDao().insertTransaction(transaction));
     }
 }
 

@@ -13,8 +13,7 @@ import java.util.List;
 import io.mns.mpfm.R;
 import io.mns.mpfm.databinding.ItemTransactionExpenseBinding;
 import io.mns.mpfm.databinding.ItemTransactionIncomeBinding;
-import io.mns.mpfm.db.entities.TransactionEntity;
-import io.mns.mpfm.model.Transaction;
+import io.mns.mpfm.db.entities.Transaction;
 import io.mns.mpfm.ui.TransactionClickCallback;
 
 public class TransactionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -52,16 +51,16 @@ public class TransactionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (mTransactions.get(position).getType() == TransactionEntity.TransactionType.INCOME) {
-            ((IncomeViewHolder) holder).bind(((TransactionEntity) mTransactions.get(position)));
+        if (mTransactions.get(position).getType() == Transaction.TransactionType.INCOME) {
+            ((IncomeViewHolder) holder).bind(((Transaction) mTransactions.get(position)));
         } else {
-            ((ExpenseViewHolder) holder).bind(((TransactionEntity) mTransactions.get(position)));
+            ((ExpenseViewHolder) holder).bind(((Transaction) mTransactions.get(position)));
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (mTransactions.get(position).getType() == TransactionEntity.TransactionType.INCOME) {
+        if (mTransactions.get(position).getType() == Transaction.TransactionType.INCOME) {
             return INCOME_VIEW;
         } else {
             return EXPENSE_VIEW;
@@ -80,7 +79,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             mBinding = binding;
         }
 
-        void bind(TransactionEntity t) {
+        void bind(Transaction t) {
             mBinding.setData(t);
         }
     }
@@ -94,7 +93,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             mBinding = binding;
         }
 
-        void bind(TransactionEntity t) {
+        void bind(Transaction t) {
             mBinding.setData(t);
         }
     }

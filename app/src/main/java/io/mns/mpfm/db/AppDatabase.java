@@ -9,19 +9,23 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import java.util.concurrent.Executor;
+
 import io.mns.mpfm.AppExecutors;
 import io.mns.mpfm.db.converters.DateConverter;
 import io.mns.mpfm.db.converters.TransactionTypeConverter;
 import io.mns.mpfm.db.dao.TransactionDao;
-import io.mns.mpfm.db.entities.TransactionEntity;
+import io.mns.mpfm.db.entities.Transaction;
 
-@Database(entities = {TransactionEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {Transaction.class}, version = 1, exportSchema = false)
 @TypeConverters({DateConverter.class, TransactionTypeConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase sInstance;
 
     private static final String DATABASE_NAME = "pfm_db";
+
+    private AppExecutors appExecutors;
 
     public abstract TransactionDao transactionDao();
 
@@ -33,6 +37,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 if (sInstance == null) {
                     sInstance = buildDatabase(context.getApplicationContext(), executors);
                     sInstance.updateDatabaseCreated(context.getApplicationContext());
+                    sInstance.appExecutors = executors;
                 }
             }
         }
@@ -43,6 +48,10 @@ public abstract class AppDatabase extends RoomDatabase {
                                              final AppExecutors executors) {
         return Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME)
                 .build();
+    }
+
+    public Executor getExecutor() {
+        return appExecutors.diskIO();
     }
 
     /**

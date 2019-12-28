@@ -4,7 +4,7 @@
     <data>
         <variable
             name="data"
-            type="io.mns.mpfm.db.entities.TransactionEntity" />
+            type="io.mns.mpfm.db.entities.Transaction" />
     </data>
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"

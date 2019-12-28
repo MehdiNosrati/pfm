@@ -1,14 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.TransactionFragment"
-        android:background="@color/colorAccent">
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical"
+        tools:context=".ui.TransactionFragment">
 
-        <!-- TODO: Update blank fragment layout -->
+        <EditText
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_16dp"
+            android:background="@drawable/ic_round_white"
+            android:hint="@string/transaction_title_hint"
+            android:inputType="text"
+            android:padding="@dimen/_16dp"
+            tools:ignore="Autofill" />
 
-    </FrameLayout>
+        <EditText
+            android:id="@+id/value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_16dp"
+            android:background="@drawable/ic_round_white"
+            android:hint="@string/transaction_value_hint"
+            android:inputType="number"
+            android:padding="@dimen/_16dp"
+            tools:ignore="Autofill" />
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_16dp"
+            android:padding="@dimen/_16dp"
+            android:text="@string/submit_transaction_button_text"
+            android:theme="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+
+    </LinearLayout>
 </layout>

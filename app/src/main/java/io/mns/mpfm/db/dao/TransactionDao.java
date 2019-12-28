@@ -8,15 +8,15 @@ import androidx.room.Query;
 
 import java.util.List;
 
-import io.mns.mpfm.db.entities.TransactionEntity;
+import io.mns.mpfm.db.entities.Transaction;
 
 @Dao
 public interface TransactionDao {
 
     @Query("select * from transaction_table")
-    public LiveData<List<TransactionEntity>> loadTransactions();
+    LiveData<List<Transaction>> loadTransactions();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertTransaction(TransactionEntity t);
+    void insertTransaction(Transaction t);
 
 }
