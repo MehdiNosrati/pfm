@@ -29,7 +29,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public void setData(List<Transaction> transactions) {
         this.mTransactions = transactions;
-        notifyItemRangeInserted(0, transactions.size());
+        notifyDataSetChanged();
     }
 
     @NonNull

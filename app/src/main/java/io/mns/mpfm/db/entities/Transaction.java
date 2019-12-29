@@ -16,6 +16,7 @@ public class Transaction extends BaseObservable {
     private long value;
     private String title;
     private TransactionType type;
+    private Date date;
 
     @Ignore
     public Transaction(int id, long value, String title, TransactionType type, Date date) {
@@ -25,8 +26,6 @@ public class Transaction extends BaseObservable {
         this.type = type;
         this.date = date;
     }
-
-    private Date date;
 
     public int getId() {
         return this.id;
@@ -55,7 +54,7 @@ public class Transaction extends BaseObservable {
 
     @Bindable
     public Date getDate() {
-        return null;
+        return this.date;
     }
 
     public void setTitle(String title) {

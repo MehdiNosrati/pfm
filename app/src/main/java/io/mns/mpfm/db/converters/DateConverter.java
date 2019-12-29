@@ -5,12 +5,12 @@ import java.util.Date;
 
 public class DateConverter {
     @TypeConverter
-    public static Date toDate(Long timestamp) {
+    public static Date timestampToDate(Long timestamp) {
         return timestamp == null ? null : new Date(timestamp);
     }
 
     @TypeConverter
-    public static Long toTimestamp(Date date) {
+    public static Long dateToTimestamp(Date date) {
         return date == null ? null : date.getTime();
     }
 }

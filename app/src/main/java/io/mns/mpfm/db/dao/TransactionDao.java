@@ -13,7 +13,7 @@ import io.mns.mpfm.db.entities.Transaction;
 @Dao
 public interface TransactionDao {
 
-    @Query("select * from transaction_table")
+    @Query("select * from transaction_table order by date desc")
     LiveData<List<Transaction>> loadTransactions();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
