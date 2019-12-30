@@ -1,6 +1,7 @@
 package io.mns.mpfm.viewmodels
 
 import android.app.Application
+import android.content.Context
 import androidx.annotation.NonNull
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -8,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import io.mns.mpfm.DataRepository
 import io.mns.mpfm.PfmApplication
+import io.mns.mpfm.db.entities.Balance
 import io.mns.mpfm.db.entities.Transaction
 
 class HomeViewModel(application: Application, private val dataRepository: DataRepository) : AndroidViewModel(application) {
@@ -24,6 +26,9 @@ class HomeViewModel(application: Application, private val dataRepository: DataRe
             //noinspection unchecked
             return (HomeViewModel(application, mRepository)) as T
         }
+    }
 
+    fun getBalance(context: Context): Balance {
+        return Balance.getInstance(context)
     }
 }

@@ -2,4 +2,6 @@
 <resources>
     <dimen name="_16dp">16dp</dimen>
     <dimen name="_4dp">4dp</dimen>
+    <dimen name="balance_container_height">112dp</dimen>
+    <dimen name="_8dp">8dp</dimen>
 </resources>

@@ -15,6 +15,7 @@ import androidx.navigation.Navigation;
 
 import io.mns.mpfm.R;
 import io.mns.mpfm.databinding.FragmentHomeBinding;
+import io.mns.mpfm.db.entities.Balance;
 import io.mns.mpfm.ui.adapters.TransactionAdapter;
 import io.mns.mpfm.ui.callbacks.TransactionClickCallback;
 import io.mns.mpfm.viewmodels.HomeViewModel;
@@ -43,8 +44,18 @@ public class HomeFragment extends Fragment implements TransactionClickCallback {
         super.onActivityCreated(savedInstanceState);
         setupViewModel();
         setupListeners();
+        retrieveBalance();
         setupTransactionList();
         startDataObservation();
+    }
+
+    private void retrieveBalance() {
+        if (getContext() != null) {
+            Balance balance = viewModel.getBalance(getContext());
+            binding.balanceRemaining.setText(String.valueOf(balance.getRemaining()));
+            binding.balanceIncome.setText(String.valueOf(balance.getIncome()));
+            binding.balanceExpense.setText(String.valueOf(balance.getExpense()));
+        }
     }
 
     private void startDataObservation() {
@@ -63,9 +74,11 @@ public class HomeFragment extends Fragment implements TransactionClickCallback {
     }
 
     private void setupViewModel() {
-        HomeViewModel.Factory factory = new HomeViewModel.Factory(getActivity().getApplication());
-        viewModel = ViewModelProviders.of(this, factory).get(HomeViewModel.class);
-        binding.setViewmodel(viewModel);
+        if (getActivity() != null) {
+            HomeViewModel.Factory factory = new HomeViewModel.Factory(getActivity().getApplication());
+            viewModel = ViewModelProviders.of(this, factory).get(HomeViewModel.class);
+            binding.setViewmodel(viewModel);
+        }
     }
 
     @Override
