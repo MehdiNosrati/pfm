@@ -45,6 +45,7 @@ public class TransactionFragment extends Fragment {
             String value = binding.value.getText().toString();
             if (!title.isEmpty() && !value.isEmpty()) {
                 viewModel.submit(title, Long.valueOf(value));
+                viewModel.updateBalance(v.getContext(), Long.valueOf(value));
                 hideKeyboard();
                 Navigation.findNavController(v).navigate(R.id.add_transaction_to_home);
             } else {
