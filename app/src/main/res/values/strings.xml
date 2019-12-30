@@ -6,4 +6,5 @@
     <string name="transaction_value_hint">how much?</string>
     <string name="transaction_title_hint">spent on…</string>
     <string name="submit_transaction_button_text">submit</string>
+    <string name="invalid_transaction_error">invalid transaction</string>
 </resources>

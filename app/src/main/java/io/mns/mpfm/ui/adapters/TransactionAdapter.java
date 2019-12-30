@@ -14,7 +14,7 @@ import io.mns.mpfm.R;
 import io.mns.mpfm.databinding.ItemTransactionExpenseBinding;
 import io.mns.mpfm.databinding.ItemTransactionIncomeBinding;
 import io.mns.mpfm.db.entities.Transaction;
-import io.mns.mpfm.ui.TransactionClickCallback;
+import io.mns.mpfm.ui.callbacks.TransactionClickCallback;
 
 public class TransactionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

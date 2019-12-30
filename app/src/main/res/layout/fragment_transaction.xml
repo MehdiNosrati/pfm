@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
         android:orientation="vertical"
-        tools:context=".ui.TransactionFragment">
+        tools:context=".ui.fragments.TransactionFragment">
 
         <EditText
             android:id="@+id/title"

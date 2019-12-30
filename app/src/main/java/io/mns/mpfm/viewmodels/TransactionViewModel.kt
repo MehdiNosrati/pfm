@@ -10,7 +10,7 @@ import java.util.*
 class TransactionViewModel(application: Application) : AndroidViewModel(application) {
     private var dataRepository: DataRepository = (application as PfmApplication).repository
 
-    fun submit(title: String?, value: Long) {
+    fun submit(title: String, value: Long) {
         val transaction = Transaction()
         transaction.let {
             it.date = Date()

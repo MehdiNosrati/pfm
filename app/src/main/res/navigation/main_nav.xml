@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="io.mns.mpfm.ui.HomeFragment"
+        android:name="io.mns.mpfm.ui.fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
@@ -17,7 +17,13 @@
     </fragment>
     <fragment
         android:id="@+id/transactionFragment"
-        android:name="io.mns.mpfm.ui.TransactionFragment"
+        android:name="io.mns.mpfm.ui.fragments.TransactionFragment"
         android:label="fragment_transaction"
-        tools:layout="@layout/fragment_transaction" />
+        tools:layout="@layout/fragment_transaction">
+        <action
+            android:id="@+id/add_transaction_to_home"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
 </navigation>
