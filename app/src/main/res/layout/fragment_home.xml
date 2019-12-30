@@ -11,7 +11,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.HomeFragment"
+        tools:context=".ui.fragments.HomeFragment"
         android:background="@color/white">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -21,12 +21,12 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/new_transaction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/_16dp"
-            android:src="@drawable/ic_add"
-            android:onClick="@{(view) -> viewmodel.navigateToTransaction(view)}"/>
+            android:src="@drawable/ic_add" />
 
     </FrameLayout>
 </layout>
