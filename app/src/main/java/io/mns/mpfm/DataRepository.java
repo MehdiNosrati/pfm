@@ -3,6 +3,7 @@ package io.mns.mpfm;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.mns.mpfm.db.AppDatabase;
@@ -16,16 +17,16 @@ public class DataRepository {
     private static DataRepository sInstance;
 
     private final AppDatabase mDatabase;
-    private MediatorLiveData<List<Transaction>> mObservabletransactions;
+    private MediatorLiveData<List<Transaction>> mObservableTransactions;
 
     private DataRepository(final AppDatabase database) {
         mDatabase = database;
-        mObservabletransactions = new MediatorLiveData<>();
+        mObservableTransactions = new MediatorLiveData<>();
 
-        mObservabletransactions.addSource(mDatabase.transactionDao().loadTransactions(),
+        mObservableTransactions.addSource(mDatabase.transactionDao().loadTransactions(),
                 transactionEntities -> {
                     if (mDatabase.getDatabaseCreated().getValue() != null) {
-                        mObservabletransactions.postValue(transactionEntities);
+                        mObservableTransactions.postValue(transactionEntities);
                     }
                 });
     }
@@ -45,12 +46,16 @@ public class DataRepository {
      * Get the list of transactions from the database and get notified when the data changes.
      */
     public LiveData<List<Transaction>> getTransactions() {
-        return mObservabletransactions;
+        return mObservableTransactions;
     }
 
     public void submit(Transaction transaction) {
         mDatabase.getExecutor().execute(() ->
                 mDatabase.transactionDao().insertTransaction(transaction));
+        if (mObservableTransactions.getValue() != null && mObservableTransactions.getValue().size() == 0)
+            mObservableTransactions.postValue(new ArrayList<Transaction>() {{
+                add(transaction);
+            }});
     }
 }
 
