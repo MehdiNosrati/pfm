@@ -18,7 +18,11 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
         transaction.let {
             it.date = Date()
             it.title = title
-            it.type = Transaction.TransactionType.INCOME //TODO fix
+            it.type =
+                    if (value > 0)
+                        Transaction.TransactionType.INCOME
+                    else
+                        Transaction.TransactionType.EXPENSE
             it.value = value
         }
         dataRepository.submit(transaction)
@@ -27,6 +31,10 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
     fun updateBalance(context: Context, value: Long) {
         val balance = Balance.getInstance(context)
         balance.remaining += value
+        if (value > 0)
+            balance.income += value
+        else
+            balance.expense += (-value)
         SharedPreferencesHelper.updateBalance(context, balance)
     }
 }

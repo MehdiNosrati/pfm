@@ -24,6 +24,7 @@ public class TransactionFragment extends Fragment {
 
     private FragmentTransactionBinding binding;
     private TransactionViewModel viewModel;
+    private int transactionType = 1;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -44,14 +45,22 @@ public class TransactionFragment extends Fragment {
             String title = binding.title.getText().toString();
             String value = binding.value.getText().toString();
             if (!title.isEmpty() && !value.isEmpty()) {
-                viewModel.submit(title, Long.valueOf(value));
-                viewModel.updateBalance(v.getContext(), Long.valueOf(value));
+                viewModel.submit(title, Long.valueOf(value) * transactionType);
+                viewModel.updateBalance(v.getContext(), Long.valueOf(value) * transactionType);
                 hideKeyboard();
                 Navigation.findNavController(v).navigate(R.id.add_transaction_to_home);
             } else {
-                Toast.makeText(getContext(), R.string.invalid_transaction_error, Toast.LENGTH_LONG).show();
+                Toast.makeText(
+                        getContext(), R.string.invalid_transaction_error, Toast.LENGTH_LONG
+                ).show();
             }
         });
+
+        binding.typeSelector
+                .setOnClickedButtonListener(position -> {
+                    if (position == 0) transactionType = 1;
+                    else transactionType = -1;
+                });
     }
 
     private void hideKeyboard() {
