@@ -44,11 +44,8 @@ public class TransactionFragment extends Fragment {
         binding.submit.setOnClickListener(v -> {
             String title = binding.title.getText().toString();
             String value = binding.value.getText().toString();
-            if (!title.isEmpty() && !value.isEmpty()) {
-                viewModel.submit(title, Long.valueOf(value) * transactionType);
-                viewModel.updateBalance(v.getContext(), Long.valueOf(value) * transactionType);
-                hideKeyboard();
-                Navigation.findNavController(v).navigate(R.id.add_transaction_to_home);
+            if (!title.isEmpty() && !value.isEmpty() && Long.valueOf(value) != 0) {
+                submitTransaction(v, title, value);
             } else {
                 Toast.makeText(
                         getContext(), R.string.invalid_transaction_error, Toast.LENGTH_LONG
@@ -61,6 +58,13 @@ public class TransactionFragment extends Fragment {
                     if (position == 0) transactionType = 1;
                     else transactionType = -1;
                 });
+    }
+
+    private void submitTransaction(View v, String title, String value) {
+        viewModel.submit(title, Long.valueOf(value) * transactionType);
+        viewModel.updateBalance(v.getContext(), Long.valueOf(value) * transactionType);
+        hideKeyboard();
+        Navigation.findNavController(v).navigate(R.id.add_transaction_to_home);
     }
 
     private void hideKeyboard() {
