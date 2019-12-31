@@ -8,10 +8,12 @@ import io.mns.mpfm.PfmApplication
 import io.mns.mpfm.db.entities.Balance
 import io.mns.mpfm.db.entities.Transaction
 import io.mns.mpfm.utils.SharedPreferencesHelper
+import java.text.SimpleDateFormat
 import java.util.*
 
 class TransactionViewModel(application: Application) : AndroidViewModel(application) {
     private var dataRepository: DataRepository = (application as PfmApplication).repository
+    private val dateFormatter = SimpleDateFormat("MMMM dd", Locale.US)
 
     fun submit(title: String, value: Long) {
         val transaction = Transaction()
@@ -24,8 +26,13 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
                     else
                         Transaction.TransactionType.EXPENSE
             it.value = value
+            it.humanReadableDate = humanReadableDate(it.date)
         }
         dataRepository.submit(transaction)
+    }
+
+    private fun humanReadableDate(date: Date): String {
+        return dateFormatter.format(date)
     }
 
     fun updateBalance(context: Context, value: Long) {

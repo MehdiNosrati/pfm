@@ -17,7 +17,7 @@ import io.mns.mpfm.db.converters.TransactionTypeConverter;
 import io.mns.mpfm.db.dao.TransactionDao;
 import io.mns.mpfm.db.entities.Transaction;
 
-@Database(entities = {Transaction.class}, version = 1, exportSchema = false)
+@Database(entities = {Transaction.class}, version = 2, exportSchema = false)
 @TypeConverters({DateConverter.class, TransactionTypeConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -47,6 +47,7 @@ public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase buildDatabase(final Context appContext,
                                              final AppExecutors executors) {
         return Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME)
+                .fallbackToDestructiveMigration()
                 .build();
     }
 

@@ -16,15 +16,17 @@ public class Transaction extends BaseObservable {
     private long value;
     private String title;
     private TransactionType type;
+    private String humanReadableDate;
     private Date date;
 
     @Ignore
-    public Transaction(int id, long value, String title, TransactionType type, Date date) {
+    public Transaction(int id, long value, String title, TransactionType type, Date date, String humanReadableDate) {
         this.id = id;
         this.value = value;
         this.title = title;
         this.type = type;
         this.date = date;
+        this.humanReadableDate = humanReadableDate;
     }
 
     public int getId() {
@@ -52,7 +54,6 @@ public class Transaction extends BaseObservable {
         this.date = date;
     }
 
-    @Bindable
     public Date getDate() {
         return this.date;
     }
@@ -71,6 +72,15 @@ public class Transaction extends BaseObservable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Bindable
+    public String getHumanReadableDate() {
+        return humanReadableDate;
+    }
+
+    public void setHumanReadableDate(String humanReadableDate) {
+        this.humanReadableDate = humanReadableDate;
     }
 
     public enum TransactionType {
