@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -46,14 +47,19 @@ dependencies {
     implementation deps.support.design
     implementation deps.support.cardview
     implementation deps.support.design
+    implementation deps.support.core_ktx
     implementation deps.constraint_layout
+    implementation deps.kotlin.stdlib
 
     // Architecture components
     implementation deps.lifecycle.runtime
     implementation deps.lifecycle.extensions
-    annotationProcessor deps.lifecycle.compiler
+    implementation deps.lifecycle.viewmodel_ktx
+    kapt deps.lifecycle.compiler
     implementation deps.room.runtime
-    annotationProcessor deps.room.compiler
+    kapt deps.room.compiler
+    implementation deps.navigation.fragment
+    implementation deps.navigation.ui
 
     // Android Testing Support Library's runner and rules
     androidTestImplementation deps.atsl.core
@@ -73,11 +79,8 @@ dependencies {
     androidTestImplementation deps.support.app_compat
     androidTestImplementation deps.support.design
 
-    implementation deps.navigation.fragment
-    implementation deps.navigation.ui
-    implementation "androidx.core:core-ktx:+"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //segmented control
+    implementation deps.segmented_control.ui
 
 }
 repositories {

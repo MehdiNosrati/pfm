@@ -21,7 +21,7 @@
  **/
 ext.deps = [:]
 def versions = [:]
-versions.android_gradle_plugin = '3.5.0'
+versions.android_gradle_plugin = '3.5.2'
 versions.apache_commons = "2.5"
 versions.arch_core = "2.0.1"
 versions.atsl_core = "1.1.0"
@@ -30,7 +30,7 @@ versions.atsl_runner = "1.1.1"
 versions.atsl_junit = "1.1.0"
 versions.benchmark = "1.0.0-alpha02"
 versions.constraint_layout = "2.0.0-beta3"
-versions.core_ktx = "1.0.0"
+versions.core_ktx = "1.1.0"
 versions.dagger = "2.16"
 versions.dexmaker = "2.2.0"
 versions.espresso = "3.1.1"
@@ -38,8 +38,8 @@ versions.fragment = "1.1.0-alpha09"
 versions.glide = "4.8.0"
 versions.hamcrest = "1.3"
 versions.junit = "4.12"
-versions.kotlin = "1.3.40"
-versions.lifecycle = "2.0.0"
+versions.kotlin = "1.3.61"
+versions.lifecycle = "2.1.0"
 versions.mockito = "2.25.0"
 versions.mockito_all = "1.10.19"
 versions.mockito_android = "2.25.0"
@@ -55,6 +55,7 @@ versions.rxjava2 = "2.1.3"
 versions.support = "1.0.0"
 versions.timber = "4.5.1"
 versions.work = "2.1.0"
+versions.segmented_control = "v2.0.2"
 ext.versions = versions
 
 def deps = [:]
@@ -179,11 +180,17 @@ navigation.ui_ktx = "androidx.navigation:navigation-ui-ktx:$versions.navigation"
 navigation.safe_args_plugin = "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
 deps.navigation = navigation
 
+def segmented_control = [:]
+segmented_control.ui = "com.github.ceryle:SegmentedButton:$versions.segmented_control"
+deps.segmented_control = segmented_control
+
 ext.deps = deps
 
-def addRepos(RepositoryHandler handler) {
+static def addRepos(RepositoryHandler handler) {
     handler.google()
     handler.jcenter()
     handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    handler.maven { url 'https://jitpack.io' }
 }
+
 ext.addRepos = this.&addRepos
