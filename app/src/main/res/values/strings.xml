@@ -10,5 +10,6 @@
     <string name="income">INCOME</string>
     <string name="expense">EXPENSE</string>
     <string name="balance">BALANCE</string>
-    <string name="income_title_hint">from...</string>
+    <string name="income_title_hint" translatable="false">from...</string>
+    <string name="add_new">ADD NEW</string>
 </resources>

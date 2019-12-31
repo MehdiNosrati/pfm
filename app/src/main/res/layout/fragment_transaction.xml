@@ -4,9 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
+        android:id="@+id/parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/red"
         android:orientation="vertical"
         tools:context=".ui.fragments.TransactionFragment">
 
@@ -39,10 +40,10 @@
             android:layout_margin="@dimen/_16dp"
             app:sbg_animateSelector="fastOutSlowIn"
             app:sbg_animateSelectorDuration="200"
-            app:sbg_backgroundColor="@color/colorAccent"
+            app:sbg_backgroundColor="@color/white"
             app:sbg_position="1"
             app:sbg_radius="@dimen/_16dp"
-            app:sbg_selectorColor="@color/white">
+            app:sbg_selectorColor="@color/main_blue">
 
             <co.ceryle.segmentedbutton.SegmentedButton
                 android:layout_width="wrap_content"
@@ -70,6 +71,9 @@
             android:layout_margin="@dimen/_16dp"
             android:padding="@dimen/_16dp"
             android:text="@string/submit_transaction_button_text"
+            android:textColor="@color/grey"
+            android:backgroundTint="@color/white"
+            android:elevation="0dp"
             android:theme="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
 

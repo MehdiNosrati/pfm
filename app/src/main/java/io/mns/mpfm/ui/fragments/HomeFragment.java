@@ -16,6 +16,7 @@ import androidx.navigation.Navigation;
 import io.mns.mpfm.R;
 import io.mns.mpfm.databinding.FragmentHomeBinding;
 import io.mns.mpfm.db.entities.Balance;
+import io.mns.mpfm.ui.MainActivity;
 import io.mns.mpfm.ui.adapters.TransactionAdapter;
 import io.mns.mpfm.ui.callbacks.TransactionClickCallback;
 import io.mns.mpfm.viewmodels.HomeViewModel;
@@ -47,6 +48,7 @@ public class HomeFragment extends Fragment implements TransactionClickCallback {
         retrieveBalance();
         setupTransactionList();
         startDataObservation();
+        ((MainActivity) getActivity()).changeStatusBarColor(R.color.main_blue);
     }
 
     private void retrieveBalance() {

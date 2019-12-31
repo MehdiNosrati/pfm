@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -18,6 +20,7 @@ import androidx.navigation.Navigation;
 
 import io.mns.mpfm.R;
 import io.mns.mpfm.databinding.FragmentTransactionBinding;
+import io.mns.mpfm.ui.MainActivity;
 import io.mns.mpfm.viewmodels.TransactionViewModel;
 
 public class TransactionFragment extends Fragment {
@@ -38,6 +41,7 @@ public class TransactionFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         setupViewModel();
         setupListeners();
+        ((MainActivity) getActivity()).changeStatusBarColor(R.color.red);
     }
 
     private void setupListeners() {
@@ -58,10 +62,14 @@ public class TransactionFragment extends Fragment {
                     if (position == 0)  {
                         transactionType = 1;
                         binding.title.setHint(R.string.income_title_hint);
+                        binding.parent.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.green));
+                        ((MainActivity) getActivity()).changeStatusBarColor(R.color.green);
                     }
                     else  {
                         transactionType = -1;
                         binding.title.setHint(R.string.expense_title_hint);
+                        binding.parent.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.red));
+                        ((MainActivity) getActivity()).changeStatusBarColor(R.color.red);
                     }
                 });
     }

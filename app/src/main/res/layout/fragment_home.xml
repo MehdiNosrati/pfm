@@ -12,7 +12,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/main_blue"
         tools:context=".ui.fragments.HomeFragment">
 
         <LinearLayout
@@ -23,8 +23,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/balance_container_height"
-                android:background="@color/white"
-                android:padding="@dimen/_16dp"
+                android:background="@drawable/ic_round_white"
+                android:paddingLeft="@dimen/_4dp"
+                android:paddingRight="@dimen/_4dp"
+                android:paddingTop="@dimen/_16dp"
+                android:paddingBottom="@dimen/_16dp"
+                android:layout_margin="@dimen/_16dp"
                 android:baselineAligned="false">
 
                 <FrameLayout
@@ -107,13 +111,16 @@
 
         </LinearLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:theme="@style/AppTheme"
             android:id="@+id/new_transaction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
+            android:layout_gravity="bottom|center"
             android:layout_margin="@dimen/_16dp"
-            android:src="@drawable/ic_add" />
+            android:backgroundTint="@color/white"
+            android:text="@string/add_new"
+            app:icon="@drawable/ic_add" />
 
     </FrameLayout>
 </layout>
