@@ -4,10 +4,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="transaction_value_hint">how much?</string>
-    <string name="transaction_title_hint">spent on…</string>
+    <string name="expense_title_hint">spent on…</string>
     <string name="submit_transaction_button_text">submit</string>
     <string name="invalid_transaction_error">invalid transaction</string>
     <string name="income">INCOME</string>
     <string name="expense">EXPENSE</string>
     <string name="balance">BALANCE</string>
+    <string name="income_title_hint">from...</string>
 </resources>

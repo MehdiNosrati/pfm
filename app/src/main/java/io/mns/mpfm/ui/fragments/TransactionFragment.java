@@ -24,7 +24,7 @@ public class TransactionFragment extends Fragment {
 
     private FragmentTransactionBinding binding;
     private TransactionViewModel viewModel;
-    private int transactionType = 1;
+    private int transactionType = -1;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -55,8 +55,14 @@ public class TransactionFragment extends Fragment {
 
         binding.typeSelector
                 .setOnClickedButtonListener(position -> {
-                    if (position == 0) transactionType = 1;
-                    else transactionType = -1;
+                    if (position == 0)  {
+                        transactionType = 1;
+                        binding.title.setHint(R.string.income_title_hint);
+                    }
+                    else  {
+                        transactionType = -1;
+                        binding.title.setHint(R.string.expense_title_hint);
+                    }
                 });
     }
 

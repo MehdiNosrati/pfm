@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_16dp"
             android:background="@drawable/ic_round_white"
-            android:hint="@string/transaction_title_hint"
+            android:hint="@string/expense_title_hint"
             android:inputType="text"
             android:padding="@dimen/_16dp"
             tools:ignore="Autofill" />
@@ -40,7 +40,7 @@
             app:sbg_animateSelector="fastOutSlowIn"
             app:sbg_animateSelectorDuration="200"
             app:sbg_backgroundColor="@color/colorAccent"
-            app:sbg_position="0"
+            app:sbg_position="1"
             app:sbg_radius="@dimen/_16dp"
             app:sbg_selectorColor="@color/white">
 
