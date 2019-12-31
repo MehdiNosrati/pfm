@@ -31,7 +31,7 @@ public class DataRepository {
                 });
     }
 
-    public static DataRepository getInstance(final AppDatabase database) {
+    static DataRepository getInstance(final AppDatabase database) {
         if (sInstance == null) {
             synchronized (DataRepository.class) {
                 if (sInstance == null) {
