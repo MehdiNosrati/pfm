@@ -76,6 +76,19 @@
             android:elevation="0dp"
             android:theme="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
+        <Button
+            android:id="@+id/remove"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_16dp"
+            android:padding="@dimen/_16dp"
+            android:text="@string/delete_transaction_button_text"
+            android:textColor="@color/too_red"
+            android:backgroundTint="@color/white"
+            android:elevation="0dp"
+            android:visibility="gone"
+            android:theme="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
 
     </LinearLayout>
 </layout>

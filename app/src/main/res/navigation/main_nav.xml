@@ -2,7 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_nav" app:startDestination="@id/homeFragment">
+    android:id="@+id/main_nav"
+    app:startDestination="@id/homeFragment">
 
 
     <fragment
@@ -13,17 +14,21 @@
         <action
             android:id="@+id/home_to_add_transaction"
             app:destination="@id/transactionFragment"
-            app:launchSingleTop="true"/>
+            app:launchSingleTop="true" />
     </fragment>
     <fragment
         android:id="@+id/transactionFragment"
         android:name="io.mns.mpfm.ui.fragments.TransactionFragment"
         android:label="fragment_transaction"
         tools:layout="@layout/fragment_transaction">
+        <argument
+            android:name="transaction_id"
+            android:defaultValue="-1"
+            app:argType="integer" />
         <action
             android:id="@+id/add_transaction_to_home"
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

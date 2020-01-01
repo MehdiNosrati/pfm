@@ -5,6 +5,10 @@
         <variable
             name="data"
             type="io.mns.mpfm.db.entities.Transaction" />
+
+        <variable
+            name="callback"
+            type="io.mns.mpfm.ui.callbacks.TransactionClickCallback" />
     </data>
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -12,7 +16,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_16dp">
+        android:layout_margin="@dimen/_16dp"
+        android:onClick="@{(view) -> callback.onClick(data)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

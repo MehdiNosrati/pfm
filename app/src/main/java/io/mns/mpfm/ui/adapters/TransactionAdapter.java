@@ -40,12 +40,12 @@ public class TransactionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             ItemTransactionIncomeBinding binding;
             binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                     R.layout.item_transaction_income, parent, false);
-            return new IncomeViewHolder(binding);
+            return new IncomeViewHolder(binding, mTransactionClickCallback);
         } else {
             ItemTransactionExpenseBinding binding;
             binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                     R.layout.item_transaction_expense, parent, false);
-            return new ExpenseViewHolder(binding);
+            return new ExpenseViewHolder(binding, mTransactionClickCallback);
         }
     }
 
@@ -74,27 +74,33 @@ public class TransactionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     static class IncomeViewHolder extends RecyclerView.ViewHolder {
         ItemTransactionIncomeBinding mBinding;
-        IncomeViewHolder(@NonNull ItemTransactionIncomeBinding binding) {
+        TransactionClickCallback mCallback;
+        IncomeViewHolder(@NonNull ItemTransactionIncomeBinding binding, TransactionClickCallback callback) {
             super(binding.getRoot());
             mBinding = binding;
+            mCallback = callback;
         }
 
         void bind(Transaction t) {
             mBinding.setData(t);
+            mBinding.setCallback(mCallback);
         }
     }
 
     static class ExpenseViewHolder extends RecyclerView.ViewHolder {
 
         ItemTransactionExpenseBinding mBinding;
+        TransactionClickCallback mCallback;
 
-        ExpenseViewHolder(@NonNull ItemTransactionExpenseBinding binding) {
+        ExpenseViewHolder(@NonNull ItemTransactionExpenseBinding binding, TransactionClickCallback callback) {
             super(binding.getRoot());
             mBinding = binding;
+            this.mCallback = callback;
         }
 
         void bind(Transaction t) {
             mBinding.setData(t);
+            mBinding.setCallback(mCallback);
         }
     }
 }
