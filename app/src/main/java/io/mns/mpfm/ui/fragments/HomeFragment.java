@@ -48,7 +48,6 @@ public class HomeFragment extends Fragment implements TransactionClickCallback {
         retrieveBalance();
         setupTransactionList();
         startDataObservation();
-        ((MainActivity) getActivity()).changeStatusBarColor(R.color.main_blue);
     }
 
     private void retrieveBalance() {
