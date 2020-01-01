@@ -3,6 +3,7 @@ package io.mns.mpfm.viewmodels
 import android.app.Application
 import android.content.Context
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import io.mns.mpfm.DataRepository
 import io.mns.mpfm.PfmApplication
 import io.mns.mpfm.db.entities.Balance
@@ -31,17 +32,45 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
         dataRepository.submit(transaction)
     }
 
+    fun submit(transaction: Transaction, title: String, value: Long) {
+        transaction.let {
+            it.title = title
+            it.type =
+                    if (value > 0)
+                        Transaction.TransactionType.INCOME
+                    else
+                        Transaction.TransactionType.EXPENSE
+            it.value = value
+        }
+        dataRepository.submit(transaction)
+    }
+
     private fun humanReadableDate(date: Date): String {
         return dateFormatter.format(date)
     }
 
-    fun updateBalance(context: Context, value: Long) {
+    fun updateBalance(context: Context, value: Long, previousTransaction: Transaction?) {
         val balance = Balance.getInstance(context)
+        if (previousTransaction != null) {
+            balance.remaining -= previousTransaction.value
+            if (previousTransaction.value > 0)
+                balance.income -= previousTransaction.value
+            else
+                balance.expense -= -(previousTransaction.value)
+        }
         balance.remaining += value
         if (value > 0)
             balance.income += value
         else
             balance.expense += (-value)
         SharedPreferencesHelper.updateBalance(context, balance)
+    }
+
+    fun getTransactionById(id: Int): LiveData<Transaction> {
+        return dataRepository.getTransactionById(id)
+    }
+
+    fun removeTransaction(transaction: Transaction) {
+        dataRepository.removeTransaction(transaction)
     }
 }

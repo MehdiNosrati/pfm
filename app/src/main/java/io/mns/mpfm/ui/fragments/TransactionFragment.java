@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -21,7 +19,7 @@ import androidx.navigation.Navigation;
 
 import io.mns.mpfm.R;
 import io.mns.mpfm.databinding.FragmentTransactionBinding;
-import io.mns.mpfm.ui.MainActivity;
+import io.mns.mpfm.db.entities.Transaction;
 import io.mns.mpfm.viewmodels.TransactionViewModel;
 
 public class TransactionFragment extends Fragment {
@@ -29,6 +27,8 @@ public class TransactionFragment extends Fragment {
     private FragmentTransactionBinding binding;
     private TransactionViewModel viewModel;
     private int transactionType = -1;
+    private int transactionIdToEdit = -1;
+    private Transaction previousTransaction = null;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -42,6 +42,31 @@ public class TransactionFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         setupViewModel();
         setupListeners();
+        checkArguments();
+    }
+
+    private void checkArguments() {
+        if (getArguments() != null) {
+            transactionIdToEdit = TransactionFragmentArgs.fromBundle(getArguments()).getTransactionId();
+            if (transactionIdToEdit != -1) {
+                changeToEditMode();
+            }
+        }
+    }
+
+    private void changeToEditMode() {
+        viewModel.getTransactionById(transactionIdToEdit).observe(this, transaction -> {
+            if (transaction != null) {
+                binding.remove.setVisibility(View.VISIBLE);
+                previousTransaction = transaction;
+                binding.title.setText(transaction.getTitle());
+                binding.value.setText(String.valueOf(Math.abs(transaction.getValue())));
+                transactionType = transaction.getType() == Transaction.TransactionType.INCOME ? 1 : -1;
+                binding.typeSelector.setPosition(transactionType == 1 ? 0 : 1);
+                if (transaction.getType() == Transaction.TransactionType.INCOME)
+                    ((TransitionDrawable) binding.parent.getBackground()).reverseTransition(300);
+            }
+        });
     }
 
     private void setupListeners() {
@@ -59,23 +84,38 @@ public class TransactionFragment extends Fragment {
 
         binding.typeSelector
                 .setOnClickedButtonListener(position -> {
-                    if (position == 0)  {
+                    if (position == 0) {
                         transactionType = 1;
                         binding.title.setHint(R.string.income_title_hint);
                         ((TransitionDrawable) binding.parent.getBackground()).startTransition(300);
-                    }
-                    else  {
+                    } else {
                         transactionType = -1;
                         binding.title.setHint(R.string.expense_title_hint);
                         ((TransitionDrawable) binding.parent.getBackground()).reverseTransition(300);
                     }
                 });
+
+        binding.remove.setOnClickListener(v -> {
+            if (v.getVisibility() == View.VISIBLE) {
+                viewModel.removeTransaction(previousTransaction);
+                viewModel.updateBalance(v.getContext().getApplicationContext(), 0, previousTransaction);
+                goBack(v);
+            }
+        });
     }
 
     private void submitTransaction(View v, String title, String value) {
-        viewModel.submit(title, Long.valueOf(value) * transactionType);
-        viewModel.updateBalance(v.getContext(), Long.valueOf(value) * transactionType);
+        viewModel.updateBalance(v.getContext().getApplicationContext(), Long.valueOf(value) * transactionType, previousTransaction);
+        if (previousTransaction != null) {
+            viewModel.submit(previousTransaction, title, Long.valueOf(value) * transactionType);
+        } else {
+            viewModel.submit(title, Long.valueOf(value) * transactionType);
+        }
         hideKeyboard();
+        goBack(v);
+    }
+
+    private void goBack(View v) {
         Navigation.findNavController(v).navigate(R.id.add_transaction_to_home);
     }
 

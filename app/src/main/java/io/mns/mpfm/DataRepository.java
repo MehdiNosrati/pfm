@@ -2,6 +2,7 @@ package io.mns.mpfm;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +25,8 @@ public class DataRepository {
         mObservableTransactions = new MediatorLiveData<>();
 
         mObservableTransactions.addSource(mDatabase.transactionDao().loadTransactions(),
-                transactionEntities -> {
-                    if (mDatabase.getDatabaseCreated().getValue() != null) {
-                        mObservableTransactions.postValue(transactionEntities);
-                    }
-                });
+                transactionEntities ->
+                        mObservableTransactions.postValue(transactionEntities));
     }
 
     static DataRepository getInstance(final AppDatabase database) {
@@ -52,10 +50,18 @@ public class DataRepository {
     public void submit(Transaction transaction) {
         mDatabase.getExecutor().execute(() ->
                 mDatabase.transactionDao().insertTransaction(transaction));
-        if (mObservableTransactions.getValue() != null && mObservableTransactions.getValue().size() == 0)
-            mObservableTransactions.postValue(new ArrayList<Transaction>() {{
-                add(transaction);
-            }});
+    }
+
+    public LiveData<Transaction> getTransactionById(int id) {
+        MutableLiveData<Transaction> transaction = new MutableLiveData<>();
+        mDatabase.getExecutor().execute(() ->
+                transaction.postValue(mDatabase.transactionDao().getTransactionById(id)));
+        return transaction;
+    }
+
+    public void removeTransaction(Transaction transaction) {
+        mDatabase.getExecutor().execute(() ->
+                mDatabase.transactionDao().removeTransaction(transaction));
     }
 }
 

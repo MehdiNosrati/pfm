@@ -11,12 +11,13 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import io.mns.mpfm.R;
 import io.mns.mpfm.databinding.FragmentHomeBinding;
 import io.mns.mpfm.db.entities.Balance;
-import io.mns.mpfm.ui.MainActivity;
+import io.mns.mpfm.db.entities.Transaction;
 import io.mns.mpfm.ui.adapters.TransactionAdapter;
 import io.mns.mpfm.ui.callbacks.TransactionClickCallback;
 import io.mns.mpfm.viewmodels.HomeViewModel;
@@ -83,7 +84,10 @@ public class HomeFragment extends Fragment implements TransactionClickCallback {
     }
 
     @Override
-    public void onClick() {
-
+    public void onClick(Transaction transaction) {
+        if (getView() != null) {
+            NavDirections action = HomeFragmentDirections.homeToAddTransaction().setTransactionId(transaction.getId());
+            Navigation.findNavController(getView()).navigate(action);
+        }
     }
 }
