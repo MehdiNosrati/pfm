@@ -7,7 +7,7 @@
         android:id="@+id/parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/red"
+        android:background="@drawable/transaction_background"
         android:orientation="vertical"
         tools:context=".ui.fragments.TransactionFragment">
 

@@ -2,6 +2,7 @@ package io.mns.mpfm.ui.fragments;
 
 
 import android.app.Activity;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +42,6 @@ public class TransactionFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         setupViewModel();
         setupListeners();
-        ((MainActivity) getActivity()).changeStatusBarColor(R.color.red);
     }
 
     private void setupListeners() {
@@ -62,14 +62,12 @@ public class TransactionFragment extends Fragment {
                     if (position == 0)  {
                         transactionType = 1;
                         binding.title.setHint(R.string.income_title_hint);
-                        binding.parent.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.green));
-                        ((MainActivity) getActivity()).changeStatusBarColor(R.color.green);
+                        ((TransitionDrawable) binding.parent.getBackground()).startTransition(300);
                     }
                     else  {
                         transactionType = -1;
                         binding.title.setHint(R.string.expense_title_hint);
-                        binding.parent.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.red));
-                        ((MainActivity) getActivity()).changeStatusBarColor(R.color.red);
+                        ((TransitionDrawable) binding.parent.getBackground()).reverseTransition(300);
                     }
                 });
     }
