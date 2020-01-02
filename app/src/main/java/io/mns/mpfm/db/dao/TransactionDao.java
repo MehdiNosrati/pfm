@@ -20,6 +20,9 @@ public interface TransactionDao {
     @Query("select * from transaction_table where id=:id")
     Transaction getTransactionById(int id);
 
+    @Query("select * from transaction_table where type=:type")
+    LiveData<List<Transaction>> filterByType(int type);
+
     @Delete
     void removeTransaction(Transaction transaction);
 
