@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -28,8 +29,37 @@ public class TransactionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public void setData(List<Transaction> transactions) {
-        this.mTransactions = transactions;
-        notifyDataSetChanged();
+        if (mTransactions == null) {
+            mTransactions = transactions;
+            notifyItemRangeInserted(0, transactions.size());
+        } else {
+            DiffUtil.Callback callback = new DiffUtil.Callback() {
+                @Override
+                public int getOldListSize() {
+                    return mTransactions.size();
+                }
+
+                @Override
+                public int getNewListSize() {
+                    return transactions.size();
+                }
+
+                @Override
+                public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+                    return mTransactions.get(oldItemPosition).getId() == transactions.get(newItemPosition).getId();
+                }
+
+                @Override
+                public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+                    return mTransactions.get(oldItemPosition).getTitle().equals(transactions.get(newItemPosition).getTitle())
+                            && mTransactions.get(oldItemPosition).getValue() == transactions.get(newItemPosition).getValue()
+                            && mTransactions.get(oldItemPosition).getType() == transactions.get(newItemPosition).getType();
+                }
+            };
+            DiffUtil.DiffResult result = DiffUtil.calculateDiff(callback);
+            mTransactions = transactions;
+            result.dispatchUpdatesTo(this);
+        }
     }
 
     @NonNull
@@ -52,9 +82,9 @@ public class TransactionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (mTransactions.get(position).getType() == Transaction.TransactionType.INCOME) {
-            ((IncomeViewHolder) holder).bind(((Transaction) mTransactions.get(position)));
+            ((IncomeViewHolder) holder).bind(mTransactions.get(position));
         } else {
-            ((ExpenseViewHolder) holder).bind(((Transaction) mTransactions.get(position)));
+            ((ExpenseViewHolder) holder).bind(mTransactions.get(position));
         }
     }
 
