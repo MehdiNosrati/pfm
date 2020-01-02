@@ -62,5 +62,11 @@ public class DataRepository {
         mDatabase.getExecutor().execute(() ->
                 mDatabase.transactionDao().removeTransaction(transaction));
     }
+
+    public LiveData<List<Transaction>> filterTransactionsByType(int type) {
+        MediatorLiveData<List<Transaction>> transactions = new MediatorLiveData<>();
+        transactions.addSource(mDatabase.transactionDao().filterByType(type), transactions::postValue);
+        return transactions;
+    }
 }
 
