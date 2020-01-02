@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.mns.mpfm.db.AppDatabase;
