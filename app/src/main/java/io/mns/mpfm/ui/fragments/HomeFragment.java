@@ -77,6 +77,18 @@ public class HomeFragment extends Fragment implements TransactionClickCallback {
     private void setupListeners() {
         binding.newTransaction.setOnClickListener(v ->
                 Navigation.findNavController(v).navigate(R.id.home_to_add_transaction));
+        binding.income.setOnClickListener(v -> {
+            if (getView() != null) {
+                NavDirections action = HomeFragmentDirections.homeToFilter().setFilterType(0);
+                Navigation.findNavController(getView()).navigate(action);
+            }
+        });
+        binding.expense.setOnClickListener(v -> {
+            if (getView() != null) {
+                NavDirections action = HomeFragmentDirections.homeToFilter().setFilterType(1);
+                Navigation.findNavController(getView()).navigate(action);
+            }
+        });
     }
 
     private void setupViewModel() {
