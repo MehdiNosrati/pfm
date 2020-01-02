@@ -44,6 +44,10 @@ public class HomeFragment extends Fragment implements TransactionClickCallback {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        init();
+    }
+
+    private void init() {
         setupViewModel();
         setupListeners();
         retrieveBalance();
