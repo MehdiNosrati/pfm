@@ -35,7 +35,7 @@ public abstract class AppDatabase extends RoomDatabase {
         if (sInstance == null) {
             synchronized (AppDatabase.class) {
                 if (sInstance == null) {
-                    sInstance = buildDatabase(context.getApplicationContext(), executors);
+                    sInstance = buildDatabase(context.getApplicationContext());
                     sInstance.updateDatabaseCreated(context.getApplicationContext());
                     sInstance.appExecutors = executors;
                 }
@@ -44,8 +44,7 @@ public abstract class AppDatabase extends RoomDatabase {
         return sInstance;
     }
 
-    private static AppDatabase buildDatabase(final Context appContext,
-                                             final AppExecutors executors) {
+    private static AppDatabase buildDatabase(final Context appContext) {
         return Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME)
                 .fallbackToDestructiveMigration()
                 .build();
