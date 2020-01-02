@@ -11,8 +11,8 @@ android {
         applicationId "io.mns.mpfm"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 20010110
-        versionName "1.0.0"
+        versionCode 20010210
+        versionName "1.1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
