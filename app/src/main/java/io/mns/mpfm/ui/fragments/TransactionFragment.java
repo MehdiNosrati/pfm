@@ -40,6 +40,10 @@ public class TransactionFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        init();
+    }
+
+    private void init() {
         setupViewModel();
         setupListeners();
         checkArguments();
@@ -75,6 +79,7 @@ public class TransactionFragment extends Fragment {
             String value = binding.value.getText().toString();
             if (!title.isEmpty() && !value.isEmpty() && Long.valueOf(value) != 0) {
                 submitTransaction(v, title, value);
+                goBack(v);
             } else {
                 Toast.makeText(
                         getContext(), R.string.invalid_transaction_error, Toast.LENGTH_LONG
@@ -105,14 +110,17 @@ public class TransactionFragment extends Fragment {
     }
 
     private void submitTransaction(View v, String title, String value) {
-        viewModel.updateBalance(v.getContext().getApplicationContext(), Long.valueOf(value) * transactionType, previousTransaction);
         if (previousTransaction != null) {
+            viewModel.updateBalance(v.getContext().getApplicationContext(),
+                    Long.valueOf(value) * transactionType,
+                    previousTransaction);
             viewModel.submit(previousTransaction, title, Long.valueOf(value) * transactionType);
         } else {
+            viewModel.updateBalance(v.getContext().getApplicationContext(),
+                    Long.valueOf(value) * transactionType);
             viewModel.submit(title, Long.valueOf(value) * transactionType);
         }
         hideKeyboard();
-        goBack(v);
     }
 
     private void goBack(View v) {

@@ -29,7 +29,7 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
             it.value = value
             it.humanReadableDate = humanReadableDate(it.date)
         }
-        dataRepository.submit(transaction)
+        submit(transaction)
     }
 
     fun submit(transaction: Transaction, title: String, value: Long) {
@@ -42,11 +42,25 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
                         Transaction.TransactionType.EXPENSE
             it.value = value
         }
+        submit(transaction)
+    }
+
+    private fun submit(transaction: Transaction) {
         dataRepository.submit(transaction)
     }
 
     private fun humanReadableDate(date: Date): String {
         return dateFormatter.format(date)
+    }
+
+    fun updateBalance(context: Context, value: Long) {
+        val balance = Balance.getInstance(context)
+        balance.remaining += value
+        if (value > 0)
+            balance.income += value
+        else
+            balance.expense += (-value)
+        SharedPreferencesHelper.updateBalance(context, balance)
     }
 
     fun updateBalance(context: Context, value: Long, previousTransaction: Transaction?) {
@@ -58,12 +72,7 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
             else
                 balance.expense -= -(previousTransaction.value)
         }
-        balance.remaining += value
-        if (value > 0)
-            balance.income += value
-        else
-            balance.expense += (-value)
-        SharedPreferencesHelper.updateBalance(context, balance)
+        updateBalance(context, value)
     }
 
     fun getTransactionById(id: Int): LiveData<Transaction> {
