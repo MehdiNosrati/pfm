@@ -18,9 +18,9 @@ public class SharedPreferencesHelper {
     public static Balance getBalance(Context context) {
         SharedPreferences preferences =
                 context.getSharedPreferences(Keys.KEY_BALANCE_PREFS, Context.MODE_PRIVATE);
-        Long remaining = preferences.getLong(Keys.KEY_REMAINING, 0L);
-        Long income = preferences.getLong(Keys.KEY_TOTAL_INCOME, 0L);
-        Long expense = preferences.getLong(Keys.KEY_TOTAL_EXPENSE, 0L);
+        long remaining = preferences.getLong(Keys.KEY_REMAINING, 0L);
+        long income = preferences.getLong(Keys.KEY_TOTAL_INCOME, 0L);
+        long expense = preferences.getLong(Keys.KEY_TOTAL_EXPENSE, 0L);
         return new Balance(remaining, income, expense);
 
     }
