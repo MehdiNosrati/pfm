@@ -13,4 +13,5 @@
     <string name="income_title_hint" translatable="false">from...</string>
     <string name="add_new">ADD NEW</string>
     <string name="delete_transaction_button_text">DELETE</string>
+    <string name="no_result_found">Nothing found :(</string>
 </resources>
