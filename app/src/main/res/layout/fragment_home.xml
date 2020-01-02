@@ -23,55 +23,57 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/balance_container_height"
-                android:background="@drawable/ic_round_white"
-                android:paddingLeft="@dimen/_4dp"
-                android:paddingRight="@dimen/_4dp"
-                android:paddingTop="@dimen/_16dp"
-                android:paddingBottom="@dimen/_16dp"
                 android:layout_margin="@dimen/_16dp"
+                android:background="@drawable/ic_round_white"
                 android:baselineAligned="false">
 
                 <FrameLayout
+                    android:id="@+id/income"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:padding="@dimen/_8dp"
-                    android:background="?android:attr/selectableItemBackground">
+                    android:background="?android:attr/selectableItemBackground"
+                    android:padding="@dimen/_8dp">
 
                     <TextView
                         android:id="@+id/balance_income"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|top"
+                        android:layout_marginTop="@dimen/_16dp"
                         tools:text="1200" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|bottom"
+                        android:layout_marginBottom="@dimen/_16dp"
                         android:gravity="bottom"
                         android:text="@string/income"
                         tools:text="income" />
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/expense"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:padding="@dimen/_8dp"
-                    android:background="?android:attr/selectableItemBackground">
+                    android:background="?android:attr/selectableItemBackground"
+                    android:padding="@dimen/_8dp">
 
                     <TextView
                         android:id="@+id/balance_expense"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|top"
+                        android:layout_marginTop="@dimen/_16dp"
                         tools:text="1200" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|bottom"
+                        android:layout_marginBottom="@dimen/_16dp"
                         android:gravity="bottom"
                         android:text="@string/expense"
                         tools:text="expense" />
@@ -81,20 +83,22 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:padding="@dimen/_8dp"
-                    android:background="?android:attr/selectableItemBackground">
+                    android:background="?android:attr/selectableItemBackground"
+                    android:padding="@dimen/_8dp">
 
                     <TextView
                         android:id="@+id/balance_remaining"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|top"
+                        android:layout_marginTop="@dimen/_16dp"
                         tools:text="1200" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|bottom"
+                        android:layout_marginBottom="@dimen/_16dp"
                         android:gravity="bottom"
                         android:text="@string/balance"
                         tools:text="balance" />
@@ -105,14 +109,13 @@
                 android:id="@+id/transaction_list"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="5"
+                android:layout_weight="1"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_transaction_expense" />
 
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:theme="@style/AppTheme"
             android:id="@+id/new_transaction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -120,6 +123,7 @@
             android:layout_margin="@dimen/_16dp"
             android:backgroundTint="@color/white"
             android:text="@string/add_new"
+            android:theme="@style/AppTheme"
             app:icon="@drawable/ic_add" />
 
     </FrameLayout>

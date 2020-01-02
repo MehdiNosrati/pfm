@@ -17,12 +17,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_16dp"
+        app:cardElevation="1dp"
         android:onClick="@{(view) -> callback.onClick(data)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_round_red">
+            android:background="@drawable/ic_ripple_round_red">
 
             <TextView
                 android:id="@+id/transaction_title"
