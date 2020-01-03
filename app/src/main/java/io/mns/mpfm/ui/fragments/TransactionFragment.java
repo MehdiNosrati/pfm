@@ -16,13 +16,17 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import io.mns.mpfm.R;
 import io.mns.mpfm.databinding.FragmentTransactionBinding;
+import io.mns.mpfm.db.entities.Tag;
 import io.mns.mpfm.db.entities.Transaction;
+import io.mns.mpfm.ui.adapters.TagAdapter;
+import io.mns.mpfm.ui.callbacks.TagClickCallback;
 import io.mns.mpfm.viewmodels.TransactionViewModel;
 
-public class TransactionFragment extends Fragment {
+public class TransactionFragment extends Fragment implements TagClickCallback {
 
     private FragmentTransactionBinding binding;
     private TransactionViewModel viewModel;
@@ -47,6 +51,15 @@ public class TransactionFragment extends Fragment {
         setupViewModel();
         setupListeners();
         checkArguments();
+        setupTags();
+    }
+
+    private void setupTags() {
+        binding.tagList.setLayoutManager(
+                new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
+        );
+        TagAdapter adapter = new TagAdapter(this);
+        binding.tagList.setAdapter(adapter);
     }
 
     private void checkArguments() {
@@ -138,5 +151,10 @@ public class TransactionFragment extends Fragment {
 
     private void setupViewModel() {
         viewModel = ViewModelProviders.of(this).get(TransactionViewModel.class);
+    }
+
+    @Override
+    public void onClick(Tag tag) {
+
     }
 }
