@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import io.mns.mpfm.DataRepository
 import io.mns.mpfm.PfmApplication
 import io.mns.mpfm.db.entities.Balance
+import io.mns.mpfm.db.entities.Tag
 import io.mns.mpfm.db.entities.Transaction
 import io.mns.mpfm.utils.SharedPreferencesHelper
 import java.text.SimpleDateFormat
@@ -81,5 +82,9 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
 
     fun removeTransaction(transaction: Transaction) {
         dataRepository.removeTransaction(transaction)
+    }
+
+    fun findTags(query: String): LiveData<List<Tag>> {
+        return dataRepository.findTags(query)
     }
 }
