@@ -2,12 +2,15 @@ package io.mns.mpfm.db;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.concurrent.Executor;
 
@@ -15,9 +18,10 @@ import io.mns.mpfm.AppExecutors;
 import io.mns.mpfm.db.converters.DateConverter;
 import io.mns.mpfm.db.converters.TransactionTypeConverter;
 import io.mns.mpfm.db.dao.TransactionDao;
+import io.mns.mpfm.db.entities.Tag;
 import io.mns.mpfm.db.entities.Transaction;
 
-@Database(entities = {Transaction.class}, version = 2, exportSchema = false)
+@Database(entities = {Transaction.class, Tag.class}, version = 3, exportSchema = false)
 @TypeConverters({DateConverter.class, TransactionTypeConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -46,7 +50,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase buildDatabase(final Context appContext) {
         return Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME)
-                .fallbackToDestructiveMigration()
+                .addMigrations(MIGRATION_2_3)
                 .build();
     }
 
@@ -70,5 +74,13 @@ public abstract class AppDatabase extends RoomDatabase {
     public LiveData<Boolean> getDatabaseCreated() {
         return mIsDatabaseCreated;
     }
+
+    static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE `tags_table` (`id` INTEGER NOT NULL, "
+                    + "`title` TEXT , " + " `color` TEXT, " + " PRIMARY KEY(`id`))");
+        }
+    };
 }
 
