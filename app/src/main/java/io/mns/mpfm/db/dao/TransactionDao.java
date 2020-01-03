@@ -9,6 +9,7 @@ import androidx.room.Query;
 
 import java.util.List;
 
+import io.mns.mpfm.db.entities.Tag;
 import io.mns.mpfm.db.entities.Transaction;
 
 @Dao
@@ -29,4 +30,9 @@ public interface TransactionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTransaction(Transaction t);
 
+    @Query("select * from tags_table where title like :query")
+    LiveData<List<Tag>> findTags(String query);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertTag(Tag tag);
 }
