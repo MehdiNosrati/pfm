@@ -37,6 +37,18 @@
             android:padding="@dimen/_16dp"
             tools:ignore="Autofill" />
 
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tag_list"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_16dp"
+            android:layout_marginStart="@dimen/_16dp"
+            android:background="@drawable/ic_round_white"
+            />
+
+
         <co.ceryle.segmentedbutton.SegmentedButtonGroup
             android:id="@+id/type_selector"
             android:layout_width="match_parent"
