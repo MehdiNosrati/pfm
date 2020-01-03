@@ -4,9 +4,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import io.mns.mpfm.db.AppDatabase;
+import io.mns.mpfm.db.entities.Tag;
 import io.mns.mpfm.db.entities.Transaction;
 
 /**
@@ -67,6 +70,13 @@ public class DataRepository {
         MediatorLiveData<List<Transaction>> transactions = new MediatorLiveData<>();
         transactions.addSource(mDatabase.transactionDao().filterByType(type), transactions::postValue);
         return transactions;
+    }
+
+    @NotNull
+    public LiveData<List<Tag>> findTags(@NotNull String query) {
+        MediatorLiveData<List<Tag>> tags = new MediatorLiveData<>();
+        tags.addSource(mDatabase.transactionDao().findTags(query), tags::postValue);
+        return tags;
     }
 }
 
