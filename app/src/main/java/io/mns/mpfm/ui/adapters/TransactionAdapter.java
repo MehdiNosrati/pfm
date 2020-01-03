@@ -65,7 +65,6 @@ public class TransactionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View rootView;
         if (viewType == INCOME_VIEW) {
             ItemTransactionIncomeBinding binding;
             binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
