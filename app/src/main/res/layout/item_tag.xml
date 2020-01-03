@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="tag"
+            type="io.mns.mpfm.db.entities.Tag" />
+
+        <variable
+            name="callback"
+            type="io.mns.mpfm.ui.callbacks.TagClickCallback" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        app:backgroundString="@{tag.color}"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/_8dp"
+        android:paddingTop="@dimen/_4dp"
+        android:paddingEnd="@dimen/_8dp"
+        android:paddingBottom="@dimen/_4dp"
+        tools:background="@drawable/ic_round_green"
+        android:layout_marginStart="@dimen/_8dp"
+        android:layout_marginTop="@dimen/_8dp">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/ic_x"
+            tools:ignore="RtlHardcoded"
+            android:onClick="@{() -> callback.onClick(tag)}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@{tag.title}"
+            tools:ignore="RtlHardcoded"
+            tools:text="TAG TITLE FOO BAR" />
+
+
+    </LinearLayout>
+</layout>
