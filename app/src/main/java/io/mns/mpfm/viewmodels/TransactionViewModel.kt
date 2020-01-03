@@ -84,7 +84,7 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
         dataRepository.removeTransaction(transaction)
     }
 
-    fun findTags(query: String): LiveData<List<Tag>> {
-        return dataRepository.findTags(query)
+    fun findTags(): LiveData<List<Tag>> {
+        return dataRepository.findTags()
     }
 }

@@ -73,9 +73,9 @@ public class DataRepository {
     }
 
     @NotNull
-    public LiveData<List<Tag>> findTags(@NotNull String query) {
+    public LiveData<List<Tag>> findTags() {
         MediatorLiveData<List<Tag>> tags = new MediatorLiveData<>();
-        tags.addSource(mDatabase.transactionDao().findTags(query), tags::postValue);
+        tags.addSource(mDatabase.transactionDao().findTags(), tags::postValue);
         return tags;
     }
 }

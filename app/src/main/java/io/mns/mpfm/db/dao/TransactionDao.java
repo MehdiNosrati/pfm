@@ -30,8 +30,8 @@ public interface TransactionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTransaction(Transaction t);
 
-    @Query("select * from tags_table where title like :query")
-    LiveData<List<Tag>> findTags(String query);
+    @Query("select * from tags_table")
+    LiveData<List<Tag>> findTags();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTag(Tag tag);
